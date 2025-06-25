@@ -1,17 +1,44 @@
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { successToast } from "../../common/toast";
+
 const Register = () => {
+
+    const navigate = useNavigate();
+
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: '',
+    });
+    const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault(); // Prevent default form submission
+        try {
+            const res = await axios.post('http://localhost:8000/api/register', formData);
+            console.log("toast called", res.data.message);
+            toast.success(res.data.message);
+            // Redirect after successful registration
+            navigate('/');
+        } catch (error: any) {
+            console.error(error.response?.data || error.message);
+        }
+    };
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
             <div className="max-w-md w-full bg-white p-8 rounded-xl shadow-lg">
                 <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
-                <form className="space-y-5">
+                <form onSubmit={handleRegister} className="space-y-5">
                     <div>
                         <label className="block mb-1 text-sm font-medium">Name</label>
                         <input
                             type="text"
                             required
                             className="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                        // value={name}
-                        // onChange={(e) => setName(e.target.value)}
+                            value={formData.name}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         />
                     </div>
                     <div>
@@ -20,8 +47,8 @@ const Register = () => {
                             type="email"
                             required
                             className="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                        // value={email}
-                        // onChange={(e) => setEmail(e.target.value)}
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         />
                     </div>
                     <div>
@@ -30,8 +57,8 @@ const Register = () => {
                             type="password"
                             required
                             className="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                        // value={password}
-                        // onChange={(e) => setPassword(e.target.value)}
+                            value={formData.password}
+                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                         />
                     </div>
                     <button
