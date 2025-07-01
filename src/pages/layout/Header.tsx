@@ -29,7 +29,7 @@ const Header = () => {
                             </Link>
                         </DropDownItem>
                         <DropDownItem>
-                            <Link to='/change-password'>
+                            <Link to={`/change-password/${id}`}>
                                 <div className='flex items-center mr-md'>
                                     <Text>Change Password</Text>
                                 </div>

@@ -8,6 +8,7 @@ import Dashboard from './pages/dashboard/Dashboard';
 import PrivateRoute from './plugins/PrivateRoutes';
 import Profile from './pages/dashboard/user/Profile';
 import Layout from './pages/layout/Layout';
+import ChangePassword from './pages/dashboard/user/ChangePassword';
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
           <Route element={<PrivateRoute><Layout /></PrivateRoute>}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile/:id" element={<Profile />} />
+            <Route path="/change-password/:id" element={<ChangePassword />} />
           </Route>
 
         </Routes>
