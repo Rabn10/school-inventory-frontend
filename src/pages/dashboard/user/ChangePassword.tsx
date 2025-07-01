@@ -3,46 +3,32 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "../../../plugins/axios";
 import { toast } from "react-toastify";
 
-interface IUserDataProps {
-    id: null | number;
-    name: string;
-    email: string;
-}
+// interface IUserDataProps {
+//     id: null | number;
+//     name: string;
+//     email: string;
+// }
 
-const Profile = () => {
+const ChangePassword = () => {
 
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const [userData, setUserData] = useState<IUserDataProps>({
-        id: null,
-        name: '',
-        email: ''
+    const [changePassword, setChangePassword] = useState({
+        current_password: '',
+        password: ''
     });
 
-    // const [formData, setFormData] = useState<IUserDataProps>({
-    //     // id: null,
-    //     name: '',
-    //     email: ''
-    // });
-
-    const loadData = async () => {
-        try {
-            let response: any = await axios.get(`/user/${id}`);
-            setUserData(response.data.data);
-        }
-        catch (error: any) {
-            console.error(error.response?.data || error.message);
-        }
-    }
-
-    const updateUser = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleChangePassword = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            let response: any = await axios.put(`/user/${userData.id}`, userData);
+            let response: any = await axios.post(`/user/changePassword`, changePassword);
             if (response.data.status === 1) {
                 toast.success(response.data.message);
                 navigate('/dashboard');
+            } else {
+                toast.error(response.data.message);
+                navigate(`/change-password/${id}`); // Redirect to change password page on error
             }
 
         }
@@ -51,33 +37,30 @@ const Profile = () => {
         }
     }
 
-    useEffect(() => {
-        loadData();
-    }, []);
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
             <div className="max-w-md w-full bg-white p-8 rounded-xl shadow-lg">
-                <h2 className="text-2xl font-bold text-center mb-6">Update Profile</h2>
-                <form onSubmit={updateUser} className="space-y-5">
+                <h2 className="text-2xl font-bold text-center mb-6">Change Password</h2>
+                <form onSubmit={handleChangePassword} className="space-y-5">
                     <div>
-                        <label className="block mb-1 text-sm font-medium">Name</label>
+                        <label className="block mb-1 text-sm font-medium">Current Password</label>
                         <input
-                            type="text"
+                            type="password"
                             required
                             className="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            value={userData.name}
-                            onChange={(e) => setUserData({ ...userData, name: e.target.value })}
+                            value={changePassword.current_password}
+                            onChange={(e) => setChangePassword({ ...changePassword, current_password: e.target.value })}
                         />
                     </div>
                     <div>
-                        <label className="block mb-1 text-sm font-medium">Email</label>
+                        <label className="block mb-1 text-sm font-medium">New Password</label>
                         <input
-                            type="email"
+                            type="password"
                             required
                             className="w-full border px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            value={userData.email}
-                            onChange={(e) => setUserData({ ...userData, email: e.target.value })}
+                            value={changePassword.password}
+                            onChange={(e) => setChangePassword({ ...changePassword, password: e.target.value })}
                         />
                     </div>
                     <button
@@ -92,4 +75,4 @@ const Profile = () => {
     )
 }
 
-export default Profile;
+export default ChangePassword;

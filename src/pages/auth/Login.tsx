@@ -19,6 +19,8 @@ const Login = () => {
             const res = await axios.post('http://localhost:8000/api/login', formData);
             if (res.data.status === 1) {
                 sessionStorage.setItem('token', res.data.access_token);
+                // Store user info (convert to string)
+                sessionStorage.setItem('user', JSON.stringify(res.data.data));
                 toast.success(res.data.message);
                 navigate('/dashboard');
             }
