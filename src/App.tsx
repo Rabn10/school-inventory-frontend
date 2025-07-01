@@ -6,8 +6,16 @@ import { EmailVerify } from './pages/auth/EmailVerify';
 import { MantineProvider } from '@mantine/core';
 import Dashboard from './pages/dashboard/Dashboard';
 import PrivateRoute from './plugins/PrivateRoutes';
+import Profile from './pages/dashboard/user/Profile';
+import Layout from './pages/layout/Layout';
 
 function App() {
+
+  // const privateRoutes = [
+  //   { path: '/dashboard', element: <Dashboard /> },
+  //   { path: '/profile', element: <Profile /> },
+  // ];
+
   return (
     <MantineProvider defaultColorScheme="light">
       <Router>
@@ -16,14 +24,20 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/auth/verifyEmail" element={<EmailVerify />} />
           {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
+
+          {/* {privateRoutes.map(({ path, element }) => (
+            <Route
+              key={path}
+              path={path}
+              element={<PrivateRoute>{element}</PrivateRoute>}
+            />
+          ))} */}
+
+          <Route element={<PrivateRoute><Layout /></PrivateRoute>}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
+
         </Routes>
       </Router>
     </MantineProvider>
