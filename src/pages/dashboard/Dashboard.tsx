@@ -1,10 +1,10 @@
+
+// import { AiOutlineLogout, AiOutlineUser } from "react-icons/ai";
+// import { BiLockAlt } from "react-icons/bi";
+
 const Dashboard = () => {
     return (
-        <div className="dashboard">
-            <h1>Dashboard</h1>
-            <p>Welcome to the School Inventory Dashboard!</p>
-            {/* Additional dashboard components can be added here */}
-        </div>
+        <div>Dashboard page</div>
     );
 }
 
