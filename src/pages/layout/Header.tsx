@@ -10,7 +10,7 @@ const Header = () => {
     const id = user.id;
 
     return (
-        <div className="bg-white px-6 py-4 my-2 mx-4 flex items-center justify-between relative shadow-sm">
+        <div className="bg-white px-6 py-4 my-2 flex items-center justify-between relative shadow-sm">
             <Group className="flex items-center">
                 <Text size="lg" fw={500}>School Inventory</Text>
             </Group>
