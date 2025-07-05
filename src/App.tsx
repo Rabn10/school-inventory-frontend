@@ -9,6 +9,7 @@ import PrivateRoute from './plugins/PrivateRoutes';
 import Profile from './pages/dashboard/user/Profile';
 import Layout from './pages/layout/Layout';
 import ChangePassword from './pages/dashboard/user/ChangePassword';
+import Category from './pages/dashboard/category/Category';
 
 function App() {
 
@@ -38,6 +39,9 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/change-password/:id" element={<ChangePassword />} />
+
+            {/* sidenavbar */}
+            <Route path="/category" element={<Category />} />
           </Route>
 
         </Routes>
