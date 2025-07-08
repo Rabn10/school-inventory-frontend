@@ -1,18 +1,295 @@
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
-
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  overflow: hidden;
+}
+
+.masked-date {
+  input {
+    min-height: unset !important;
+    height: unset !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+  }
+}
+
+.p-0 {
+  padding: 0 !important;
+}
+
+.ml-4 {
+  margin-left: 1vw;
+}
+
+.editIcon {
+  color: black;
+  border: none;
+}
+
+.editIcon:hover {
+  color: #228be6;
+  transition: all 0.1s ease-in;
+}
+
+.deleteIcon {
+  color: black;
+  border: none;
+}
+
+.deleteIcon:hover {
+  color: red;
+  transition: all 0.1s ease-in;
+}
+
+
+.ag-theme-blue {
+  --ag-header-background-color: #228be6;
+  --ag-border-color: #c8d3e5;
+  --ag-odd-row-background-color: #e0e5ed;
+  --ag-row-hover-color: #a1b8bd;
+
+  .ag-header-cell-label {
+    justify-content: center;
+  }
+
+  .ag-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.ag-theme-blue .ag-icon {
+  color: #fff !important;
+  margin: 1px 1px 2px 1px !important;
+}
+
+.active {
+  background-color: #002d72;
+  color: #fff;
+}
+
+.active .mantine-hgwlez {
+  color: #fff;
+}
+
+.active .class-label-name {
+  pointer-events: none;
+}
+
+.active .mantine-UnstyledButton-root {
+  pointer-events: none;
+}
+
+.active .__mantine-ref-icon {
+  color: #fff;
+}
+
+.active .icon-tabler-plus {
+  color: #fff;
+}
+
+.active .mantine-ActionIcon-hover:hover {
+  background-color: #a1b8bd;
+  color: #002d72;
+}
+
+.active .mantine-ActionIcon-hover:hover .icon-tabler-plus {
+  color: #002d72;
+}
+
+#mantine-zmytapxk2-label {
+  color: red;
+}
+
+
+.subject-module,
+.class-module {
+  .ag-row-last {
+    background-color: #a1b8bd !important;
+  }
+}
+
+
+.cell-fail {
+  text-align: center;
+  font-weight: bold;
+  background-color: #f5564a;
+}
+
+.cell-not-unique {
+  text-align: center;
+  font-weight: bold;
+  background-color: #f5564a;
+}
+
+.table-head-bg {
+  background-color: #002d72;
+  line-height: 2.55 !important;
+
+  .table-head-column-name {
+    color: #fff !important;
+  }
+}
+
+.table-row-even {
+  background-color: #EFF0F6 !important;
+
+  .table-body-row-column {
+    padding: 0 10px !important;
+  }
+}
+
+.table-row-odd {
+  background-color: #F7F7FC !important;
+
+  .table-body-row-column {
+    padding: 0 10px !important;
+  }
+}
+
+.sub-table-head-bg {
+  background-color: #73A8F8;
+
+  .table-head-column-name {
+    color: #fff !important;
+  }
+}
+
+.table-body-row {
+  line-height: 2.55 !important;
+}
+
+.latest-bill {
+  width: 500px;
+}
+
+.parent-side-nav {
+  height: calc(100vh - 70px);
+  width: 250px;
+  background-color: #fff;
+
+  .active {
+    background-color: transparent !important;
+  }
+
+  .active-item {
+    background-color: #074096 !important;
+  }
+
+  .nav-items-sub {
+    .nav-item {
+      &:first-child {
+        margin-top: 10px;
+      }
+
+    }
+  }
+}
+
+@media(max-width:768px) {
+  .finance {
+    overflow: hidden;
+    width: 100%;
+
+    .finance-tabs {
+      height: 90vh;
+      width: 100%;
+      overflow-y: auto;
+
+      .tab-component {
+        width: 100%;
+
+        .bill-history,
+        .payment-history {
+          width: 96%;
+        }
+      }
+
+      .latest-bill {
+        width: 80%;
+      }
+    }
+  }
+
+}
+
+@media(max-width:650px) {
+  .parent-side-nav {
+    width: 70px;
+
+    .sidebar-label {
+      display: none;
+      text-align: center;
+    }
+  }
+
+  .finance {
+    .finance-tabs {
+      width: 100%;
+
+      .tab-component {
+        width: 100%;
+      }
+
+      .latest-bill {
+        margin-top: 20px;
+      }
+    }
+  }
+
+}
+
+.parent-logout-nav {
+  position: relative;
+
+  .parent-logout-subnav {
+    position: absolute;
+    right: 0;
+  }
+}
+
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+
+.teacher-notes {
+  br {
+    display: none;
+  }
+}
+
+
+
+.hostel-fee-detail-paper {
+  .mantine-Tabs-root {
+    height: unset !important;
+  }
+}
+
+
+.main-container-section {
+  height: calc(100vh - 66px);
+  overflow-y: auto;
+}
