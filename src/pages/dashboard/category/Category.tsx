@@ -2,6 +2,7 @@ import { Button, Paper, Table, Title } from "@mantine/core"
 import axios from "../../../plugins/axios";
 import { useEffect, useState } from "react"
 import { IconEdit, IconTrash } from "@tabler/icons-react";
+import { toast } from "react-toastify";
 
 interface ICategoryProps {
     id?: null | number,
@@ -27,7 +28,19 @@ const Category = () => {
         }
     }
 
-    console.log("Category", category);
+    const deleteActionHandler = async (id: number | undefined | null) => {
+        try {
+            if (id) {
+                const response = await axios.delete(`/category/${id}`);
+                if (response.data.status === 1) {
+                    toast.success(response.data.message) && loadData();
+                }
+            }
+        }
+        catch (error: any) {
+            console.error(error.response?.data || error.message);
+        }
+    }
 
     useEffect(() => {
         loadData();
@@ -41,7 +54,7 @@ const Category = () => {
                 <Button size="xs" color="blue">
                     <IconEdit size={16} />
                 </Button>
-                <Button size="xs" color="red">
+                <Button size="xs" color="red" onClick={() => deleteActionHandler(v?.id)}>
                     <IconTrash size={16} />
                 </Button>
             </td>
