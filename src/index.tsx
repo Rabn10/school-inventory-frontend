@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ToastContainer } from 'react-toastify';
+import '@mantine/core/styles.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
