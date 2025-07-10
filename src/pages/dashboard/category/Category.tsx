@@ -1,8 +1,9 @@
-import { Button, Paper, Table, Title } from "@mantine/core"
+import { Button, Modal, Paper, Table, TextInput, Title } from "@mantine/core"
 import axios from "../../../plugins/axios";
 import { useEffect, useState } from "react"
 import { IconEdit, IconTrash } from "@tabler/icons-react";
 import { toast } from "react-toastify";
+import { useForm } from "@mantine/form";
 
 interface ICategoryProps {
     id?: null | number,
@@ -16,6 +17,15 @@ const Category = () => {
             name: ""
         }
     ]);
+
+    const [categoryId, setCategoryId] = useState<number>(0);
+    const [opened, setOpened] = useState<boolean>(false);
+
+    const form = useForm({
+        initialValues: {
+            name: "",
+        }
+    });
 
     const loadData = async () => {
         try {
@@ -46,12 +56,66 @@ const Category = () => {
         loadData();
     }, []);
 
+    const editActionHandler = (data: ICategoryProps) => {
+        setOpened(true);
+        data.id && setCategoryId(data.id);
+        form.setValues({
+            name: data.name
+        });
+    }
+
+    const handleSubmit = async () => {
+        form.values.name = form.values.name.toLowerCase();
+        try {
+            if (categoryId) {
+                // Edit
+                const response = await axios.put(`/category/${categoryId}`, form.values);
+                if (response.data.status === 1) {
+                    toast.success(response.data.message);
+                    loadData();
+                }
+            } else {
+                // Create new
+                const res = await axios.post('/category', form.values);
+                if (res.data.status === 1) {
+                    toast.success(res.data.message);
+                    loadData();
+                }
+            }
+
+            setOpened(false);
+            form.reset();
+            setCategoryId(0);
+
+        } catch (error: any) {
+            console.error(error.response?.data || error.message);
+        }
+    }
+
+
+    const CategoryModal = (
+        <Modal opened={opened} onClose={() => setOpened(false)} withCloseButton={false}
+            title={<Title data-autofocus order={3}>{categoryId ? 'Edit Fee Category' : 'Add Fee Category'}</Title>}>
+            <form onSubmit={form.onSubmit(() => handleSubmit())}>
+                <TextInput
+                    label="Category Name"
+                    placeholder="Category Name"
+                    {...form.getInputProps('name')}
+                />
+                <div className='mt-4 gap-2 flex justify-end'>
+                    <Button variant='outline' size="sm" onClick={() => setOpened(false)}>Cancel</Button>
+                    <Button className='bg-button' size="sm" type='submit'>Submit</Button>
+                </div>
+            </form>
+        </Modal>
+    )
+
     const tableBody = category?.map((v, key) => (
         <tr className="border-b border-gray-300" key={key}>
             <td className="py-2 px-3 text-left">{key + 1}</td>
             <td className="py-2 px-3 text-left">{v.name}</td>
             <td className="flex gap-2 py-2 px-3 text-left">
-                <Button size="xs" color="blue">
+                <Button size="xs" color="blue" onClick={() => editActionHandler(v)}>
                     <IconEdit size={16} />
                 </Button>
                 <Button size="xs" color="red" onClick={() => deleteActionHandler(v?.id)}>
@@ -75,23 +139,18 @@ const Category = () => {
                     }}
                 >
                     <Title
-                        order={4}
-                        fw={700}
-                        size="18px"
-                        lh={1.45}
-                        style={{ margin: 0, color: "inherit" }}
-                    >
+                        order={4}>
                         Category
                     </Title>
                     <Button
-                        radius="md"
-                        size="md"
-                        className="bg-[#2196F3] hover:bg-[#1e88e5] text-white font-semibold px-4 py-2 mb-2"
+                        className='bg-button'
+                        onClick={() => { setOpened(true); setCategoryId(0); form.reset() }}
                     >
                         Add Fee Category
                     </Button>
                 </Paper>
-                <Table highlightOnHover className="w-full mt-2">
+                {CategoryModal}
+                <Table>
                     <thead className="border-b border-gray-300 bg-gray-100 text-sm text-gray-600">
                         <tr>
                             <th className="py-2 px-3 text-left">S.N.</th>
