@@ -10,6 +10,7 @@ import Profile from './pages/dashboard/user/Profile';
 import Layout from './pages/layout/Layout';
 import ChangePassword from './pages/dashboard/user/ChangePassword';
 import Category from './pages/dashboard/category/Category';
+import Product from './pages/product/Product';
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
 
             {/* sidenavbar */}
             <Route path="/category" element={<Category />} />
+            <Route path='/product' element={<Product />} />
           </Route>
 
         </Routes>
