@@ -2,6 +2,7 @@ import { Button, Paper, Table, Title } from "@mantine/core"
 import { useEffect, useState } from "react"
 import axios from "../../plugins/axios"
 import { IconEdit, IconTrash } from "@tabler/icons-react"
+import { toast } from "react-toastify"
 
 
 interface IProductProps {
@@ -35,7 +36,21 @@ const Product = () => {
             console.error(error.response?.data || error.message);
         }
     }
-    console.log(product);
+
+    const deleteActionHandler = async (id: number | undefined | null) => {
+        try {
+            if (id) {
+                const response = await axios.delete(`/product/${id}`);
+                if (response.data.status === 1) {
+                    toast.success(response.data.message);
+                    loadData();
+                }
+            }
+        }
+        catch (error: any) {
+            console.error(error.response?.data || error.message);
+        }
+    }
 
     useEffect(() => {
         loadData();
@@ -48,14 +63,17 @@ const Product = () => {
             <td className="py-2 px-3 text-center">{v.category_name}</td>
             <td className="py-2 px-3 text-center">{v.price}</td>
             <td className="py-2 px-3 text-center">{v.description}</td>
-            <td className="flex gap-2 py-2 px-3 justify-center">
-                <Button size="xs" color="blue">
-                    <IconEdit size={16} />
-                </Button>
-                <Button size="xs" color="red">
-                    <IconTrash size={16} />
-                </Button>
+            <td className="py-2 px-3 text-center">
+                <div className="flex justify-center items-center gap-2">
+                    <Button size="xs" color="blue">
+                        <IconEdit size={16} />
+                    </Button>
+                    <Button size="xs" color="red" onClick={() => deleteActionHandler(v?.id)}>
+                        <IconTrash size={16} />
+                    </Button>
+                </div>
             </td>
+
         </tr>
     ))
 
