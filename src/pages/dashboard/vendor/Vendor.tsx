@@ -30,7 +30,15 @@ const Vendor = () => {
             <td className="py-2 px-3 text-center">
                 <div className="flex justify-center items-center gap-2">
                     <Button size="xs" color="blue">
-                        <IconEdit size={16} />
+                        <IconEdit size={16} onClick={() =>
+                            navigate('/vendor/add-vendor', {
+                                state: {
+                                    vendorDetail: v,
+                                    topHeader: 'Edit Vendor',
+                                    buttonValue: 'Update'
+                                }
+                            })
+                        } />
                     </Button>
                     <Button size="xs" color="red" onClick={() => handleDelete(v.id)}>
                         <IconTrash size={16} />
