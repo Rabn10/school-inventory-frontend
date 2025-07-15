@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 const navItems = [
     { path: "/category", label: "Category" },
-    // { path: "/brand", label: "Brand" },
     { path: "/product", label: "Product" },
+    { path: "/vendor", label: "Vendor" },
 ];
 
 const SideNavBar = () => {

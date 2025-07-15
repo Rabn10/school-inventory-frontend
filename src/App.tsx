@@ -11,6 +11,8 @@ import Layout from './pages/layout/Layout';
 import ChangePassword from './pages/dashboard/user/ChangePassword';
 import Category from './pages/dashboard/category/Category';
 import Product from './pages/product/Product';
+import Vendor from './pages/dashboard/vendor/Vendor';
+import AddVendor from './pages/dashboard/vendor/AddVendor';
 
 function App() {
 
@@ -44,6 +46,8 @@ function App() {
             {/* sidenavbar */}
             <Route path="/category" element={<Category />} />
             <Route path='/product' element={<Product />} />
+            <Route path='/vendor' element={<Vendor />} />
+            <Route path='/vendor/add-vendor' element={<AddVendor />} />
           </Route>
 
         </Routes>
