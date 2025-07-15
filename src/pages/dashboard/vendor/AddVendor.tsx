@@ -1,6 +1,6 @@
 import { Button, Grid, Paper, TextInput, Title } from "@mantine/core"
 import { useForm } from "@mantine/form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom"
 import axios from "../../../plugins/axios";
 import { toast } from "react-toastify";
@@ -9,10 +9,11 @@ const AddVendor = () => {
 
     const navigate = useNavigate();
     const location: any = useLocation();
-    const [vendorId, setVendorId] = useState<number>(0);
+    // const [vendorId, setVendorId] = useState<number>(0);
 
     const form = useForm({
         initialValues: {
+            id: '',
             company_name: '',
             contact_person: '',
             address: '',
@@ -24,9 +25,9 @@ const AddVendor = () => {
 
     const handleSubmit = async () => {
         try {
-            if (vendorId) {
+            if (form?.values?.id) {
                 //edit
-                const response = await axios.put(`/vendor/${vendorId}`, form.values);
+                const response = await axios.put(`/vendor/${form?.values?.id}`, form.values);
                 if (response.data.status === 1) {
                     toast.success(response.data.message);
                     navigate('/vendor');
@@ -44,6 +45,12 @@ const AddVendor = () => {
             console.error(error.response?.data || error.message);
         }
     }
+
+    useEffect(() => {
+        if (!!location?.state) {
+            form.setValues(location?.state?.vendorDetail);
+        }
+    }, [!!location?.state])
 
     return (
         <Paper shadow='xs' p='md' className='mx-3xl md:mx-sm  sm:mx-xs'>
