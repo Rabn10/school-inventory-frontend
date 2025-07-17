@@ -13,6 +13,8 @@ import Category from './pages/dashboard/category/Category';
 import Product from './pages/product/Product';
 import Vendor from './pages/dashboard/vendor/Vendor';
 import AddVendor from './pages/dashboard/vendor/AddVendor';
+import Batch from './pages/dashboard/batch/Batch';
+import AddBatch from './pages/dashboard/batch/AddBatch';
 
 function App() {
 
@@ -48,6 +50,8 @@ function App() {
             <Route path='/product' element={<Product />} />
             <Route path='/vendor' element={<Vendor />} />
             <Route path='/vendor/add-vendor' element={<AddVendor />} />
+            <Route path='/batch' element={<Batch />} />
+            <Route path='/batch/add-batch' element={<AddBatch />} />
           </Route>
 
         </Routes>
