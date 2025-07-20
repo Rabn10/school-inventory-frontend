@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../../plugins/axios";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
+import { toast } from "react-toastify";
 
 const Batch = () => {
 
@@ -13,6 +14,19 @@ const Batch = () => {
         try {
             const response: any = await axios.get('/batch');
             setBatch(response.data.data);
+        }
+        catch (error: any) {
+            console.error(error.response?.data || error.message);
+        }
+    }
+
+    const handleDelete = async (id: number) => {
+        try {
+            const response = await axios.delete(`/batch/${id}`);
+            if (response.data.status === 1) {
+                toast.success(response.data.message);
+                fetchBatch();
+            }
         }
         catch (error: any) {
             console.error(error.response?.data || error.message);
@@ -40,7 +54,7 @@ const Batch = () => {
                             })
                         } />
                     </Button>
-                    <Button size="xs" color="red">
+                    <Button size="xs" color="red" onClick={() => handleDelete(v.id)}>
                         <IconTrash size={16} />
                     </Button>
                 </div>
