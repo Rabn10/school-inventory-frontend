@@ -6,6 +6,7 @@ const navItems = [
     { path: "/product", label: "Product" },
     { path: "/vendor", label: "Vendor" },
     { path: "/batch", label: "Batch" },
+    { path: "/order", label: "Order" }
 ];
 
 const SideNavBar = () => {
