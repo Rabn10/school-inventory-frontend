@@ -15,6 +15,7 @@ import Vendor from './pages/dashboard/vendor/Vendor';
 import AddVendor from './pages/dashboard/vendor/AddVendor';
 import Batch from './pages/dashboard/batch/Batch';
 import AddBatch from './pages/dashboard/batch/AddBatch';
+import Order from './pages/order/Order';
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
             <Route path='/vendor/add-vendor' element={<AddVendor />} />
             <Route path='/batch' element={<Batch />} />
             <Route path='/batch/add-batch' element={<AddBatch />} />
+            <Route path='/order' element={<Order />} />
           </Route>
 
         </Routes>
